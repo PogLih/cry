@@ -1,13 +1,15 @@
 package com.dev.cry.Entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
 import java.util.Set;
-
-@Data
+@Getter
+@Setter
 @Entity
 public class User extends com.dev.cry.Entity.Entity {
     @Id
@@ -18,7 +20,7 @@ public class User extends com.dev.cry.Entity.Entity {
     private String username;
 
     private String password;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

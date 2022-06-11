@@ -13,104 +13,59 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Bean
-
     public UserService userService() {
-
         return new UserServiceImpl();
-
     }
-
 
 
     @Autowired
-
     private UserService userService;
 
 
-
     @Bean
-
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-
         return new JwtAuthenticationFilter();
-
     }
-
 
 
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
-
     @Override
-
     public AuthenticationManager authenticationManager() throws Exception {
-
         return super.authenticationManager();
-
     }
-
-
-
-    @Bean
-
-    public PasswordEncoder passwordEncoder() {
-
-        return new BCryptPasswordEncoder(10);
-
-    }
-
-
-
 
 
 
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
-
 
 
     @Override
-
     protected void configure(HttpSecurity http) throws Exception {
-
         http.csrf().ignoringAntMatchers("/**");
-
         http.authorizeRequests()
-
                 .antMatchers("/",
-
+                        "/register",
                         "/login").permitAll()
-
                 .anyRequest().authenticated()
-
                 .and().csrf().disable()
-
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
         http.sessionManagement()
-
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
         http.cors();
-
     }
-
 }

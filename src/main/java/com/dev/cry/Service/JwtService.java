@@ -1,5 +1,6 @@
 package com.dev.cry.Service;
 
+import com.dev.cry.Entity.User;
 import com.dev.cry.Utils.DateUtils;
 import com.dev.cry.model.UserPrinciple;
 import io.jsonwebtoken.*;
@@ -20,16 +21,14 @@ public class JwtService {
 
     private static final Logger logger = Logger.getLogger(JwtService.class.getName());
 
-    public String generateTokenLogin(Authentication authentication) {
-
-        UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
+    public String generateTokenLogin(UserPrinciple userPrinciple) {
         Date issueAt = DateUtils.LocalDateTimeToDate(LocalDateTime.now());
         Date expiredAt = DateUtils.LocalDateTimeToDate(LocalDateTime.now().plus(EXPIRE_TIME, ChronoUnit.MICROS));
 
 
         return Jwts.builder()
 
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject((userPrinciple.getUsername()))
 
                 .setIssuedAt(issueAt)
 

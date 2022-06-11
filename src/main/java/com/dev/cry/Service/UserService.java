@@ -9,4 +9,8 @@ public interface UserService extends UserDetailsService {
     Iterable<User> findAll();
 
     User create(User user);
+
+    User registerUser(User user);
+
+    User get(String username);
 }

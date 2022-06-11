@@ -14,18 +14,14 @@ public class UserPrinciple implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-
     private String username;
 
     private String password;
 
     private Collection<? extends GrantedAuthority> roles;
 
-    public UserPrinciple(Long id,
-                         String username, String password,
+    public UserPrinciple(String username, String password,
                          Collection<? extends GrantedAuthority> roles) {
-        this.id = id;
         this.username = username;
         this.password = password;
         this.roles = roles;
@@ -37,16 +33,12 @@ public class UserPrinciple implements UserDetails {
         ).collect(Collectors.toList());
 
         return new UserPrinciple(
-                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 authorities
         );
     }
 
-    public Long getId() {
-        return id;
-    }
 
     @Override
     public String getUsername() {
@@ -90,7 +82,7 @@ public class UserPrinciple implements UserDetails {
         if (o == null || getClass() != o.getClass()) return false;
 
         UserPrinciple user = (UserPrinciple) o;
-        return Objects.equals(id, user.id);
+        return Objects.equals(username, user.username);
     }
 
     @Override
