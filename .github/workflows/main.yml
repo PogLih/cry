@@ -52,6 +52,9 @@ jobs:
           tags:  ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-
+          
+      - name: Run
+        run: cd build/libs/ && java -jar cry-0.0.1-SNAPSHOT.jar
+        
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
