@@ -12,6 +12,6 @@ jobs:
       - name: Check Out Repo 
         uses: actions/checkout@v2
       - name: Build
-        run: ./gradlew build
+        run: gradle build
 
 
