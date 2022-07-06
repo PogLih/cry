@@ -14,5 +14,5 @@ jobs:
       - name: Build
         run: gradle build
       - name: run
-        run: run.sh
+        run: ./run.sh
 
