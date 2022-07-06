@@ -14,5 +14,5 @@ jobs:
       - name: Build
         run: gradle build
       - name: run
-        run: chmod +x ./run.sh && ./run.sh
+        run: chmod +x ./run.sh && pm2 start ./run.sh
 
