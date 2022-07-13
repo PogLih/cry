@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: stop pm2
         run: pm2 stop crynfly-java || echo skipping....
+      - name: delete current instance
+        run: pm2 delete crynfly-java || echo skipping....
       - name: Check Out Repo 
         uses: actions/checkout@v2
       - name: Build
@@ -18,5 +20,5 @@ jobs:
       - name: grant permissions
         run: chmod +x ./run.sh
       - name: run
-        run: pm2 start crynfly-java
+        run: pm2 start -name=crynfly-java ./run.sh
 
