@@ -20,5 +20,4 @@ jobs:
       - name: grant permissions
         run: chmod +x ./run.sh
       - name: run
-        run: pm2 start -name=crynfly-java ./run.sh
-
+        run: pm2 start sh run.sh --name "crynfly-java"
