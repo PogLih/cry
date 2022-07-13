@@ -12,10 +12,10 @@ public class DataSourceConfig {
     public DataSource getDataSource()
     {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("com.mysql.jdbc.Driver");
-        dataSourceBuilder.url("jdbc:mysql://localhost:3306/cry");
+        dataSourceBuilder.driverClassName("com.mysql.cj.jdbc.Driver");
+        dataSourceBuilder.url("jdbc:mysql://localhost:3306/cry?createDatabaseIfNotExist=true");
         dataSourceBuilder.username("root");
-        dataSourceBuilder.password("1234");
+        dataSourceBuilder.password("crynfly");
         return dataSourceBuilder.build();
     }
 }
